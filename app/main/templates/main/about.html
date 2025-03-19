@@ -1,8 +1,12 @@
-{% extends 'main/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
+{% endblock %}
+
+{% block modal_cart %}
+    {% include 'includes/cart_button.html' %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +17,7 @@
 {% endblock %}
 
 {% block footer %}
-     <footer class="py-4 bg-dark">
+    <footer class="py-4 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Home 2025</p>
         </div>
