@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import environ
 from pathlib import Path
 
+import environ
+from django.urls import reverse_lazy
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -44,7 +45,6 @@ INTERNAL_IPS = ['127.0.0.1']
 
 DOMAIN_NAME = env('DOMAIN_NAME')
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'main',
     'goods',
     'users',
+    'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -109,7 +110,6 @@ DATABASES = {
         'PORT': env('DATABASE_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -129,6 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / 'cache',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -157,3 +164,6 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = reverse_lazy('user:login')
+LOGIN_REDIRECT_URL = '/'
