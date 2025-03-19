@@ -290,3 +290,4 @@ pyrightconfig.json
 # other
 media/
 fixtures/
+cache/
